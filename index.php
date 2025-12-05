@@ -23,17 +23,9 @@
 	</div>
 	<div class="row">
 		<div class="col-md-9">
+			
 			<?php
-				try {
-					$dns = 'mysql:host=localhost;dbname=bibliodrive projet';
-					$utilisateur = 'root';
-					$motDePasse = '';
-					$connexion = new PDO($dns, $utilisateur, $motDePasse);
-				} catch (PDOException $e) {
-					echo 'Échec de la connexion : ' . $e->getMessage();
-				}
-			?>
-			<?php
+				require_once 'connexion.php';
 				$stmt = $connexion->prepare("SELECT titre, photo FROM livre ORDER BY dateajout DESC LIMIT 3");
 				$stmt->execute();
 				$livres = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -69,6 +61,10 @@
 			<div class="card w-100" style="max-width: 350px;">
 				<div class="card-body">
 					<h5 class="card-title">Connexion</h5>
+					<!-- Image au-dessus du formulaire de connexion -->
+					<div class="text-center mb-3">
+						<img src="Moulinsart.jpg" alt="Biblio Drive" class="img-fluid" style="max-height:150px; object-fit:contain;">
+					</div>
 					<form method="post" action="login.php">
 						<div class="mb-3">
 							<label for="email" class="form-label">Email</label>
