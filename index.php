@@ -16,8 +16,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<nav class="navbar navbar-expand-sm bg-dark navbar-dark py-2">
-				<form class="form-inline d-flex gap-2 w-75 mx-auto" action="index.php" method="get">
-					<input name="author" class="form-control flex-grow-1" type="text" placeholder="Rechercher dans le catalogue (saisir le nom de l'auteur)" style="background-color: #e7f3ff; height: 32px;" value="<?php echo isset($_GET['author']) ? htmlspecialchars(trim($_GET['author'])) : ''; ?>">
+				<form class="form-inline d-flex gap-2 w-75 mx-auto" action="Recherche.php" method="get">
+					<input name="author" class="form-control flex-grow-1" type="text" placeholder="Rechercher dans le catalogue (saisir le nom de l'auteur)" style="background-color: #e7f3ff; height: 32px;" value="">
 					<button class="btn btn-success" type="submit">Recherche</button>
 				</form>
 			</nav><br>            
@@ -58,31 +58,9 @@
 			<!-- Bootstrap JS -->
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 		</div>
-		<!-- Colonne de connexion à droite -->
-		<div class="col-md-3 d-flex align-items-start justify-content-end">
-			<div class="card w-100" style="max-width: 350px;">
-				<div class="card-body">
-					<h5 class="card-title">Connexion</h5>
-					<!-- Image au-dessus du formulaire de connexion -->
-					<div class="text-center mb-3">
-						<img src="Moulinsart.jpg" alt="Biblio Drive" class="img-fluid" style="max-height:150px; object-fit:contain;">
-					</div>
-					<form method="post" action="login.php">
-						<div class="mb-3">
-							<label for="email" class="form-label">Email</label>
-							<input type="email" class="form-control" id="email" name="email" required>
-						</div>
-						<div class="mb-3">
-							<label for="password" class="form-label">Mot de passe</label>
-							<input type="password" class="form-control" id="password" name="password" required>
-						</div>
-						<button type="submit" class="btn btn-primary w-100">Se connecter</button>
-					</form>
-				</div>
-			</div>
-		</div>
+		<?php include 'inscription.php'; ?>
 	</div>
-
+</div>
 </body>
 </html>
 	
