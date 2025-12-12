@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+
+	<div class="alert alert-info text-center my-3">
+		La bibliothèque de Moulinsart est fermée au public jusqu'à nouvel ordre. Mais il vous est possible de réserver et retirer vos livres via notre service Biblio Drive !
+	</div>
+
     <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
