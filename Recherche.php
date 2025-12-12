@@ -9,9 +9,7 @@
 </head>
 <body>
 
-	<?php
-		require_once 'navbar.php';
-	?>
+	<?php require_once 'navbar.php'; ?>
 
 		<div class="row">
 			<div class="col-md-9">

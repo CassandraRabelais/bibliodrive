@@ -10,9 +10,8 @@
 </head>
 <body>
 	
-	<?php
-		require_once 'navbar.php';
-	?>
+<?php require_once 'navbar.php'; ?>
+	
 	<div class="row">
 		<div class="col-md-9">
 			
@@ -31,12 +30,7 @@
 					</div>
 					<?php endforeach; ?>
 				</div>
-				<style>
-					.carousel-control-prev-icon,
-					.carousel-control-next-icon {
-						filter: invert(1);
-					}
-				</style>
+
 				<!-- Boutons précédent / suivant -->
 				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
 					<span class="carousel-control-prev-icon"></span>
