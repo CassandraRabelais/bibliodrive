@@ -42,23 +42,13 @@
 					<h2 class="mb-3">Résultats de recherche pour "<?php echo htmlspecialchars($searchQuery); ?>"</h2>
 					
 					<?php if (!empty($livres)): ?>
-						<div class="row">
+						<ul class="list-group">
 							<?php foreach ($livres as $livre): ?>
-								<div class="col-md-4 mb-3">
-									<div class="card h-100">
-										<a href="détails.php?nolivre=<?php echo htmlspecialchars($livre['nolivre'] ?? ''); ?>&author=<?php echo urlencode($searchQuery); ?>" class="text-decoration-none">
-											<img src="covers/<?php echo htmlspecialchars($livre['photo']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($livre['titre']); ?>" style="max-height:250px; object-fit:contain;">
-											<div class="card-body">	
-												<h6 class="card-title"><?php echo htmlspecialchars($livre['titre']); ?></h6>
-												<?php if (isset($livre['nom'])): ?>
-													<p class="card-text"><small class="text-muted"><?php echo htmlspecialchars($livre['prenom'] . ' ' . $livre['nom']); ?></small></p>
-												<?php endif; ?>
-											</div>
-										</a>
-									</div>
-								</div>
+								<li class="list-group-item">
+									<a href="détails.php?nolivre=<?php echo htmlspecialchars($livre['nolivre'] ?? ''); ?>&author=<?php echo urlencode($searchQuery); ?>" class="text-decoration-none"><?php echo htmlspecialchars($livre['titre']); ?></a>
+								</li>
 							<?php endforeach; ?>
-						</div>
+						</ul>
 					<?php else: ?>
 						<div class="alert alert-warning" role="alert">
 							Aucun livre trouvé pour l'auteur "<?php echo htmlspecialchars($searchQuery); ?>".
