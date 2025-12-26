@@ -21,9 +21,15 @@
 					<input name="author" class="form-control flex-grow-1" type="text" placeholder="Rechercher dans le catalogue (saisir le nom de l'auteur)" style="background-color: #e7f3ff; height: 32px;" value="">
 					<button class="btn btn-success" type="submit">Recherche</button>
 				</form>
+				<?php if (isset($_SESSION['user'])): ?>
+					<span class="navbar-text me-2">Bienvenue, <?php echo htmlspecialchars($_SESSION['user']['prenom'] . ' ' . $_SESSION['user']['nom']); ?></span>
+					<a href="logout.php" class="btn btn-outline-danger ms-2">Déconnexion</a>
+				<?php endif; ?>
 				<a href="panier.php" class="btn btn-outline-primary ms-2">Panier</a>
-			</nav><br>            
+			</nav><br>
 		</div>
 	</div>
+</body>
+</html>
 </body>
 </html>
