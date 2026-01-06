@@ -1,17 +1,28 @@
 <?php
-require_once 'configuration.php';
+session_start();
+require_once 'connexion.php';
+
+if (!isset($_SESSION['user']) || $_SESSION['user']['profil'] != 'admin') {
+    header("Location: login.php");
+    exit;
+}
 
 // Préparation de la requête pour récupérer les auteurs
 $stmt = $connexion->prepare("SELECT noauteur, nom, prenom FROM auteur ORDER BY nom, prenom");
 $stmt->execute();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <title>Ajouter un livre</title>
 </head>
 <body>
+    <?php require_once 'navbar.php'; ?>
+
     <div class="container mt-4">
         <h2>Ajouter un nouveau livre</h2>
         <form method="post">
@@ -33,31 +44,31 @@ $stmt->execute();
             </div>
             <div class="mb-3">
                 <label for="anneeparution" class="form-label">Année de parution:</label>
-                <input type="text" name="anneeparution" class="form-control" id="anneeparution" required>
+                <input type="number" name="anneeparution" class="form-control" id="anneeparution" required>
             </div>
             <div class="mb-3">
                 <label for="detail" class="form-label">Résumé:</label>
                 <textarea name="detail" class="form-control" id="detail" rows="3" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="photo" class="form-label">Image:</label>
+                <label for="photo" class="form-label">Image (nom du fichier dans covers/):</label>
                 <input type="text" name="photo" class="form-control" id="photo" required>
             </div>
             <button type="submit" class="btn btn-primary">Ajouter livre</button>
-            <a href="index.php" class="btn btn-secondary">Annuler</a>
+            <a href="admin.php" class="btn btn-secondary">Annuler</a>
         </form>
     </div>
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Préparation de la requête d'insertion
-        $insertStmt = $connexion->prepare("INSERT INTO livre (noauteur, titre, isbn13, anneeparution, detail, photo) VALUES (:noauteur, :titre, :isbn13, :anneeparution, :detail, :photo)");
+        $insertStmt = $connexion->prepare("INSERT INTO livre (noauteur, titre, isbn13, anneeparution, detail, photo, dateajout) VALUES (:noauteur, :titre, :isbn13, :anneeparution, :detail, :photo, CURDATE())");
         
         // Récupération des valeurs du formulaire
-        $noauteur = $_POST['noauteur'];
+        $noauteur = (int) $_POST['noauteur'];
         $titre = $_POST['titre'];
         $isbn13 = $_POST['isbn13'];
-        $anneeparution = $_POST['anneeparution'];
+        $anneeparution = (int) $_POST['anneeparution'];
         $detail = $_POST['detail'];
         $photo = $_POST['photo'];
         
@@ -70,19 +81,19 @@ $stmt->execute();
         $insertStmt->bindValue(':photo', $photo, PDO::PARAM_STR);
         
         // Exécution de la requête
-        $insertStmt->execute();
-        $nb_ligne_affectees = $insertStmt->rowCount();
-        
-        if ($nb_ligne_affectees > 0) {
+        if ($insertStmt->execute()) {
+            $nb_ligne_affectees = $insertStmt->rowCount();
             $dernier_numero = $connexion->lastInsertId();
-            echo "<div class='container mt-4'><div class='alert alert-success'>";
+            echo "<div class='alert alert-success mt-3'>";
             echo $nb_ligne_affectees . " livre(s) ajouté(s) avec succès.<br>";
             echo "Dernier numéro de livre généré : " . $dernier_numero;
-            echo "</div></div>";
+            echo "</div>";
         } else {
-            echo "<div class='container mt-4'><div class='alert alert-danger'>Erreur lors de l'ajout du livre.</div></div>";
+            echo "<div class='alert alert-danger mt-3'>Erreur lors de l'ajout du livre.</div>";
         }
     }
     ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -9,7 +9,10 @@
 </head>
 <body>
 	
-<?php require_once 'navbar.php'; ?>
+<?php 
+session_start();
+require_once 'navbar.php'; 
+?>
 	
 	<div class="container">
 	<div class="row">
