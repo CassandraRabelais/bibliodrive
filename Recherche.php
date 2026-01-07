@@ -17,6 +17,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
+				<div class="alert alert-info" role="alert">
+					Vous pouvez emprunter jusqu'à 5 livres maximum.
+				</div>
 				<?php
 					require_once 'connexion.php';
 					$livres = [];

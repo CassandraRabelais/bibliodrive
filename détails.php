@@ -12,6 +12,7 @@
     <?php 
     session_start();
     require_once 'navbar.php'; 
+    $message = '';
     ?>
 
 	<div class="container">
@@ -40,7 +41,14 @@
 							$_SESSION['cart'] = [];
 						}
 						if (!in_array($nolivre, $_SESSION['cart'])) {
-							$_SESSION['cart'][] = $nolivre;
+							if (count($_SESSION['cart']) < 5) {
+								$_SESSION['cart'][] = $nolivre;
+								$message = '<div class="alert alert-success">Livre ajouté au panier.</div>';
+							} else {
+								$message = '<div class="alert alert-danger">Panier plein. Limite de 5 livres atteinte.</div>';
+							}
+						} else {
+							$message = '<div class="alert alert-warning">Ce livre est déjà dans votre panier.</div>';
 						}
 					}
 				?>
@@ -58,6 +66,7 @@
 							<p><strong>Date d'ajout :</strong> <?php echo htmlspecialchars($livre['dateajout']); ?></p>
 							<h5>Description :</h5>
 							<p><?php echo nl2br(htmlspecialchars($livre['detail'])); ?></p>
+							<?php echo $message; ?>
 							<p class="disponible" >Disponible</p>
 							<?php if (!isset($_SESSION['user'])): ?>
 								<p class="indication">Pour pouvoir vous identifier, vous devez posséder un compte et vous connecter.</p>

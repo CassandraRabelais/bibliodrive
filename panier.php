@@ -28,32 +28,39 @@
     // Handle borrow all
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow_all']) && isset($_SESSION['user']) && !empty($_SESSION['cart'])) {
         $userEmail = $_SESSION['user']['mel'];
-        $success = true;
-        foreach ($_SESSION['cart'] as $nolivre) {
-            // Check if already borrowed
-            $checkSql = "SELECT * FROM emprunter WHERE mel = :mel AND nolivre = :nolivre AND dateretour IS NULL";
-            $checkStmt = $connexion->prepare($checkSql);
-            $checkStmt->bindParam(':mel', $userEmail);
-            $checkStmt->bindParam(':nolivre', $nolivre);
-            $checkStmt->execute();
-            if ($checkStmt->rowCount() == 0) {
-                // Borrow
-                $borrowSql = "INSERT INTO emprunter (mel, nolivre, dateemprunt) VALUES (:mel, :nolivre, CURDATE())";
-                $borrowStmt = $connexion->prepare($borrowSql);
-                $borrowStmt->bindParam(':mel', $userEmail);
-                // Rajouter limite de 5 livres et message d'erreur si dépassé 
-                $borrowStmt->bindParam(':nolivre', $nolivre);
-                if (!$borrowStmt->execute()) {
-                    $success = false;
+        // Check current borrowed
+        $currentBorrowedSql = "SELECT COUNT(*) FROM emprunter WHERE mel = :mel AND dateretour IS NULL";
+        $currentBorrowedStmt = $connexion->prepare($currentBorrowedSql);
+        $currentBorrowedStmt->bindParam(':mel', $userEmail);
+        $currentBorrowedStmt->execute();
+        $currentBorrowed = $currentBorrowedStmt->fetchColumn();
+        if ($currentBorrowed + count($_SESSION['cart']) > 5) {
+            // No message, just don't borrow
+        } else {
+            $success = true;
+            foreach ($_SESSION['cart'] as $nolivre) {
+                // Check if already borrowed
+                $checkSql = "SELECT * FROM emprunter WHERE mel = :mel AND nolivre = :nolivre AND dateretour IS NULL";
+                $checkStmt = $connexion->prepare($checkSql);
+                $checkStmt->bindParam(':mel', $userEmail);
+                $checkStmt->bindParam(':nolivre', $nolivre);
+                $checkStmt->execute();
+                if ($checkStmt->rowCount() == 0) {
+                    // Borrow
+                    $borrowSql = "INSERT INTO emprunter (mel, nolivre, dateemprunt) VALUES (:mel, :nolivre, CURDATE())";
+                    $borrowStmt = $connexion->prepare($borrowSql);
+                    $borrowStmt->bindParam(':mel', $userEmail);
+                    $borrowStmt->bindParam(':nolivre', $nolivre);
+                    if (!$borrowStmt->execute()) {
+                        $success = false;
+                    }
                 }
             }
+            if ($success) {
+                $message = '<div class="alert alert-success">Tous les livres ont été empruntés avec succès !</div>';
+            } // No message for error
         }
-        if ($success) {
-            $message = '<div class="alert alert-success">Tous les livres ont été empruntés avec succès !</div>';
-            $_SESSION['cart'] = []; // Clear cart
-        } else {
-            $message = '<div class="alert alert-danger">Erreur lors de l\'emprunt de certains livres.</div>';
-        }
+        $_SESSION['cart'] = []; // Clear cart after attempt
     }
 
     // Get book details for cart
@@ -74,8 +81,6 @@
                 <?php echo $message; ?>
                 <?php if (empty($cartBooks)): ?>
                     <p>Votre panier est vide.</p>                                                       
-                <option value="1"> <?php if  ($nolivre['disponible'] == 1) { echo "Disponible"; } else { echo "Indisponible"; } ?> </option> 
-            </option>
                 <?php else: ?>
                     <ul class="list-group">
                         <?php foreach ($cartBooks as $book): ?>
