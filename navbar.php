@@ -8,7 +8,6 @@
 </head>
 <body>
 
-	<!-- Banneau informatif -->
 	<div class="alert alert-info text-center my-3">
 		La bibliothèque de Moulinsart est fermée au public jusqu'à nouvel ordre. Mais il vous est possible de réserver et retirer vos livres via notre service Biblio Drive !
 	</div>
@@ -16,37 +15,22 @@
     <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<!-- Barre de navigation Bootstrap -->
 			<nav class="navbar navbar-expand-sm bg-dark navbar-dark py-2">
-				<!-- Logo/Lien vers l'accueil -->
 				<a class="navbar-brand" href="index.php">Accueil</a>
-				
-				<!-- Formulaire de recherche par auteur -->
 				<form class="form-inline d-flex gap-2 w-75 mx-auto" action="Recherche.php" method="get">
 					<input name="author" class="form-control flex-grow-1" type="text" placeholder="Rechercher dans le catalogue (saisir le nom de l'auteur)" style="background-color: #e7f3ff; height: 32px;" value="">
 					<button class="btn btn-success" type="submit">Recherche</button>
 				</form>
-				
-				<!-- Lien de connexion si pas connecté -->
 				<?php if (!isset($_SESSION['user'])): ?>
 					<a href="login.php" class="btn btn-outline-primary ms-2">Connexion</a>
 				<?php endif; ?>
-				
-				<!-- Lien Admin et Déconnexion si connecté -->
 				<?php if (isset($_SESSION['user'])): ?>
-					<?php if ($_SESSION['user']['profil'] == 'admin'): ?>
-						<!-- Lien administration visible seulement pour les admins -->
-						<a href="admin.php" class="btn btn-outline-warning ms-2">Administration</a>
-					<?php endif; ?>
-					<a href="logout.php" class="btn btn-outline-danger ms-2">Déconnexion</a>
+						<?php if ($_SESSION['user']['profil'] == 'admin'): ?>
+							<a href="admin.php" class="btn btn-outline-warning ms-2">Administration</a>
+						<?php endif; ?>
+						<a href="logout.php" class="btn btn-outline-danger ms-2">Déconnexion</a>
 				<?php endif; ?>
-				
-				<!-- Lien vers le panier -->
 				<a href="panier.php" class="btn btn-outline-info ms-2">Panier</a>
 			</nav><br>
 		</div>
 	</div>
-</body>
-</html>
-</body>
-</html>

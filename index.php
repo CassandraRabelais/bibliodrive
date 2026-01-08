@@ -10,15 +10,8 @@
 <body>
 	
 <?php 
-// ======================================
-// PAGE D'ACCUEIL PRINCIPALE
-// ======================================
-// Affiche un carousel des 3 derniers livres ajoutés
-// Affiche les informations de l'utilisateur s'il est connecté
-// Sinon affiche un formulaire de connexion et d'inscription
-
-session_start(); // Démarrer la session
-require_once 'navbar.php'; // Inclure la barre de navigation
+session_start();
+require_once 'navbar.php'; 
 ?>
 	
 	<div class="container">
@@ -26,22 +19,17 @@ require_once 'navbar.php'; // Inclure la barre de navigation
 		<div class="col-md-9">
 			
 			<?php
-				// Inclure la connexion à la base de données
 				require_once 'connexion.php';
-				
-				// Récupérer les 3 derniers livres ajoutés à la BD
 				$stmt = $connexion->prepare("SELECT titre, photo FROM livre ORDER BY dateajout DESC LIMIT 3");
 				$stmt->execute();
 				$livres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			?>
-			<h2 class="mb-3">Dernières acquisitions</h2>		
-			<!-- Carousel Bootstrap affichant les 3 derniers livres -->			
+			<h2 class="mb-3">Dernières acquisitions</h2>
 			<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
-				<!-- Afficher chaque livre dans le carousel -->
-				<?php foreach ($livres as $index => $livre): ?>
+					<?php foreach ($livres as $index => $livre): ?>
 					<div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-					<!-- Afficher la couverture du livre -->
+						<img src="covers/<?php echo htmlspecialchars($livre['photo']); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($livre['titre']); ?>" style="max-height: 500px; object-fit: contain;">
 					</div>
 					<?php endforeach; ?>
 				</div>
@@ -58,22 +46,20 @@ require_once 'navbar.php'; // Inclure la barre de navigation
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 		</div>
 		<?php if (isset($_SESSION['user'])): ?>
-			<!-- Si l'utilisateur est connecté, afficher ses informations personnelles -->
 			<div class="col-md-3 d-flex align-items-start justify-content-end">
 				<div class="card w-100" style="max-width: 350px;">
 					<div class="card-body">
 						<h5 class="card-title">Informations utilisateur</h5>
-						<!-- Afficher les infos récupérées de la session -->
 						<p><strong>Nom :</strong> <?php echo htmlspecialchars($_SESSION['user']['nom']); ?></p>
 						<p><strong>Prénom :</strong> <?php echo htmlspecialchars($_SESSION['user']['prenom']); ?></p>
 						<p><strong>Email :</strong> <?php echo htmlspecialchars($_SESSION['user']['mel']); ?></p>
 						<p><strong>Adresse :</strong> <?php echo htmlspecialchars($_SESSION['user']['adresse']); ?></p>
 						<p><strong>Ville :</strong> <?php echo htmlspecialchars($_SESSION['user']['ville']); ?></p>
+						<p><strong>Code postal :</strong> <?php echo htmlspecialchars($_SESSION['user']['codepostal']); ?></p>
 					</div>
 				</div>
 			</div>
 		<?php else: ?>
-			<!-- Si l'utilisateur n'est pas connecté, afficher le formulaire de connexion -->
 			<?php include 'formulaire.php'; ?>
 		<?php endif; ?>
 	</div>

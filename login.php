@@ -9,33 +9,22 @@
 </head>
 <body>
     <?php
-    // ======================================
-    // PAGE DE CONNEXION UTILISATEUR
-    // ======================================
-    // Permet aux utilisateurs de se connecter avec email et mot de passe
-    
-    session_start(); // Démarrer la session PHP
-    require_once 'connexion.php'; // Inclure le fichier de connexion à la base de données
+    session_start();
+    require_once 'connexion.php';
 
-    // Vérifier si le formulaire a été soumis en POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Récupérer les données du formulaire
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        // Préparer la requête SELECT pour chercher l'utilisateur
         $stmt = $connexion->prepare("SELECT * FROM utilisateur WHERE mel = ? AND motdepasse = ?");
-        $stmt->execute([$email, $password]); // Exécuter la requête avec email et mot de passe
-        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Récupérer le résultat sous forme de tableau
+        $stmt->execute([$email, $password]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            // Si l'utilisateur est trouvé, le stocker dans la session
             $_SESSION['user'] = $user;
-            // Rediriger vers la page d'accueil
             header('Location: index.php');
             exit;
         } else {
-            // Si identifiants incorrects, afficher un message d'erreur
             $error = "Email ou mot de passe incorrect.";
         }
     }
