@@ -102,7 +102,7 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
-            <?php include 'formulaire.php'; ?>  
+		        <?php include 'connecte.php'; ?>
         </div>
     </div>
 

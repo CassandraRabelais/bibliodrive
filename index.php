@@ -45,23 +45,7 @@ require_once 'navbar.php';
 			<!-- Bootstrap JS -->
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 		</div>
-		<?php if (isset($_SESSION['user'])): ?>
-			<div class="col-md-3 d-flex align-items-start justify-content-end">
-				<div class="card w-100" style="max-width: 350px;">
-					<div class="card-body">
-						<h5 class="card-title">Informations utilisateur</h5>
-						<p><strong>Nom :</strong> <?php echo htmlspecialchars($_SESSION['user']['nom']); ?></p>
-						<p><strong>Prénom :</strong> <?php echo htmlspecialchars($_SESSION['user']['prenom']); ?></p>
-						<p><strong>Email :</strong> <?php echo htmlspecialchars($_SESSION['user']['mel']); ?></p>
-						<p><strong>Adresse :</strong> <?php echo htmlspecialchars($_SESSION['user']['adresse']); ?></p>
-						<p><strong>Ville :</strong> <?php echo htmlspecialchars($_SESSION['user']['ville']); ?></p>
-						<p><strong>Code postal :</strong> <?php echo htmlspecialchars($_SESSION['user']['codepostal']); ?></p>
-					</div>
-				</div>
-			</div>
-		<?php else: ?>
-			<?php include 'formulaire.php'; ?>
-		<?php endif; ?>
+		<?php include 'connecte.php'; ?>
 	</div>
 	</div>
 </body>
