@@ -69,7 +69,7 @@
 							<?php echo $message; ?>
 							<p class="disponible" >Disponible</p>
 							<?php if (!isset($_SESSION['user'])): ?>
-								<p class="indication">Pour pouvoir vous identifier, vous devez posséder un compte et vous connecter.</p>
+								<p class="indication">Pour pouvoir emprunter, vous devez posséder un compte et vous connecter.</p>
 							<?php endif; ?>
 							<?php if (isset($_SESSION['user'])): ?>
 								<form method="post" style="display: inline;">
