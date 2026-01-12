@@ -58,7 +58,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['profil'] != 'admin') {
 
             <div class="mb-3">
                 <label for="codepostal" class="form-label">Code postal:</label>
-                <input type="text" name="codepostal" class="form-control" id="codepostal" required>
+                <input type="text" name="codepostal" class="form-control" id="codepostal" required> 
 
             <div class="mb-3">
                 <label for="profil" class="form-label">Profil:</label>
