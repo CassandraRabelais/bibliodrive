@@ -52,7 +52,7 @@
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									<a href="détails.php?nolivre=<?php echo htmlspecialchars($livre['nolivre'] ?? ''); ?>&author=<?php echo urlencode($searchQuery); ?>" class="text-decoration-none"><?php echo htmlspecialchars($livre['titre']); ?></a>
 									<?php if (isset($_SESSION['user'])): ?>
-										<form method="post" action="détails.php?nolivre=<?php echo htmlspecialchars($livre['nolivre'] ?? ''); ?>&author=<?php echo urlencode($searchQuery); ?>" style="display: inline;">
+<!--emmène vers la page détail-->			<form method="post" action="détails.php?nolivre=<?php echo htmlspecialchars($livre['nolivre'] ?? ''); ?>&author=<?php echo urlencode($searchQuery); ?>" style="display: inline;">
 											<input type="hidden" name="add_to_cart" value="1">
 											<button type="submit" class="btn btn-sm btn-primary">Ajouter au panier</button>
 										</form>
