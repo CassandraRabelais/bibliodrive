@@ -6,6 +6,7 @@
     <title></title>
 </head>
 <body>
+	<!--Pour avoir le détail de l'utilisateur sur le formulaire à droite-->
     <?php if (isset($_SESSION['user'])): ?>
 			<div class="col-md-3 d-flex align-items-start justify-content-end">
 				<div class="card w-100" style="max-width: 350px;">

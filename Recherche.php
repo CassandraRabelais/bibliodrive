@@ -25,6 +25,7 @@
 					$livres = [];
 					$searchQuery = '';
 					
+					//Pour afficher les livres de tels ou tels auteur juste avec le nom ou prénom ou les 2
 					if (isset($_GET['author']) && trim($_GET['author']) !== '') {
 						$searchQuery = trim($_GET['author']);
 						$sql = "SELECT DISTINCT l.nolivre, l.titre, l.photo, a.nom, a.prenom FROM livre l 
@@ -33,7 +34,6 @@
 								OR LOWER(a.prenom) LIKE LOWER(:s) 
 								OR LOWER(CONCAT(a.prenom, ' ', a.nom)) LIKE LOWER(:s) 
 								OR LOWER(CONCAT(a.nom, ' ', a.prenom)) LIKE LOWER(:s)
-								/*OR LOWER(l.titre) LIKE LOWER(:s)*/
 								ORDER BY l.dateajout DESC";
 						$stmt = $connexion->prepare($sql);
 						$param = '%'.$searchQuery.'%';

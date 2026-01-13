@@ -1,10 +1,4 @@
 <?php
-// ======================================
-// PAGE D'AJOUT DE MEMBRE (ADMIN)
-// ======================================
-// Permet aux administrateurs d'ajouter des nouveaux utilisateurs
-// Accessible uniquement aux admins
-
 session_start();
 require_once 'connexion.php';
 

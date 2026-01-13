@@ -22,7 +22,7 @@
 					require_once 'connexion.php';
 					$livre = null;
 					$searchQuery = isset($_GET['author']) ? trim($_GET['author']) : '';
-					
+					// sélectionne les livres de l'auteur demandé
 					if (isset($_GET['nolivre']) && is_numeric($_GET['nolivre'])) {
 						$nolivre = (int) $_GET['nolivre'];
 						$sql = "SELECT l.titre, l.photo, l.isbn13, l.anneeparution, l.detail, l.dateajout, a.nom, a.prenom 
@@ -35,7 +35,7 @@
 						$livre = $stmt->fetch(PDO::FETCH_ASSOC);
 					}
 
-					// Handle add to cart
+					// Pour ajouter au panier 
 					if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && isset($_SESSION['user'])) {
 						if (!isset($_SESSION['cart'])) {
 							$_SESSION['cart'] = [];
@@ -58,6 +58,7 @@
 						<div class="col-md-4">
 							<img src="covers/<?php echo htmlspecialchars($livre['photo']); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($livre['titre']); ?>" style="max-height:400px; object-fit:contain;">
 						</div>
+						<!--description / détail du livre-->
 						<div class="col-md-8">
 							<h2><?php echo htmlspecialchars($livre['titre']); ?></h2>
 							<p><strong>Auteur :</strong> <?php echo htmlspecialchars($livre['prenom'] . ' ' . $livre['nom']); ?></p>

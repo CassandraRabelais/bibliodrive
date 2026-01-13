@@ -16,37 +16,36 @@
     require_once 'navbar.php';
     require_once 'connexion.php';
     $message = '';
-    // Handle remove from cart
+    // Bouton retirer du panier 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove'])) {
         $nolivre = (int) $_POST['nolivre'];
         if (($key = array_search($nolivre, $_SESSION['cart'])) !== false) {
             unset($_SESSION['cart'][$key]);
-            $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindex
+            $_SESSION['cart'] = array_values($_SESSION['cart']); // index
         }
     }
 
-    // Handle borrow all
+    // si connecté on peux emprunter 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow_all']) && isset($_SESSION['user']) && !empty($_SESSION['cart'])) {
         $userEmail = $_SESSION['user']['mel'];
-		// Check current borrowed
+		// Vérifie si on peux 
         $currentBorrowedSql = "SELECT COUNT(*) FROM emprunter WHERE mel = :mel AND dateretour IS NULL";
         $currentBorrowedStmt = $connexion->prepare($currentBorrowedSql);
         $currentBorrowedStmt->bindParam(':mel', $userEmail);
         $currentBorrowedStmt->execute();
         $currentBorrowed = $currentBorrowedStmt->fetchColumn();
         if ($currentBorrowed + count($_SESSION['cart']) > 5) {
-            // No message, just don't borrow
         } else {
             $success = true;
             foreach ($_SESSION['cart'] as $nolivre) {
-                // Check if already borrowed
+                // Vérifie si c'est déjà emprunté
                 $checkSql = "SELECT * FROM emprunter WHERE mel = :mel AND nolivre = :nolivre AND dateretour IS NULL";
                 $checkStmt = $connexion->prepare($checkSql);
                 $checkStmt->bindParam(':mel', $userEmail);
                 $checkStmt->bindParam(':nolivre', $nolivre);
                 $checkStmt->execute();
                 if ($checkStmt->rowCount() == 0) {
-                    // Borrow
+                    // Emprunter
                     $borrowSql = "INSERT INTO emprunter (mel, nolivre, dateemprunt) VALUES (:mel, :nolivre, CURDATE())";
                     $borrowStmt = $connexion->prepare($borrowSql);
                     $borrowStmt->bindParam(':mel', $userEmail);
@@ -60,10 +59,10 @@
                 $message = '<div class="alert alert-success">Tous les livres ont été empruntés avec succès !</div>';
             } // No message for error
         }
-		$_SESSION['cart'] = []; // Clear cart after attempt
+		$_SESSION['cart'] = []; // Vider le panier 
     }
 
-    // Get book details for cart
+    // Prends les détails pour le panier 
     $cartBooks = [];
     if (!empty($_SESSION['cart'])) {
         $placeholders = str_repeat('?,', count($_SESSION['cart']) - 1) . '?';

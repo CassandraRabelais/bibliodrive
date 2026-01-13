@@ -9,11 +9,3 @@
     color:#ff0000; 
     font-style: italic; 
 }
-
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon 
-{
-    filter: invert(0.5); 
-}
-					

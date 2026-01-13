@@ -8,12 +8,6 @@
 </head>
 <body>
     <?php
-    // ======================================
-    // PAGE D'INSCRIPTION UTILISATEUR
-    // ======================================
-    // Permet aux nouveaux utilisateurs de créer un compte
-    // Vérifie que l'email n'existe pas déjà
-    
     session_start();
     require_once 'connexion.php';
 

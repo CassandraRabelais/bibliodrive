@@ -17,13 +17,14 @@ require_once 'navbar.php';
 	<div class="container">
 	<div class="row">
 		<div class="col-md-9">
-			
+			<!--Selectionne les 3 derniers livres par date d'ajout-->
 			<?php
 				require_once 'connexion.php';
 				$stmt = $connexion->prepare("SELECT titre, photo FROM livre ORDER BY dateajout DESC LIMIT 3");
 				$stmt->execute();
 				$livres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			?>
+			<!--Pour afficher le carrousel de façon dynamique-->
 			<h2 class="mb-3">Dernières acquisitions</h2>
 			<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">

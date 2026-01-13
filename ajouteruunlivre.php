@@ -1,10 +1,4 @@
 <?php
-// ======================================
-// PAGE D'AJOUT DE LIVRE (ADMIN)
-// ======================================
-// Permet aux administrateurs d'ajouter des nouveaux livres
-// Accessible uniquement aux admins
-
 session_start();
 require_once 'connexion.php';
 
