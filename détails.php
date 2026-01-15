@@ -21,9 +21,9 @@
 				<?php
 					require_once 'connexion.php';
 					$livre = null;
-					$searchQuery = isset($_GET['author']) ? trim($_GET['author']) : '';
+					$searchQuery = isset($_GET['author']);
 					// sélectionne les livres de l'auteur demandé
-					if (isset($_GET['nolivre']) && is_numeric($_GET['nolivre'])) {
+					if (isset($_GET['nolivre'])) {
 						$nolivre = (int) $_GET['nolivre'];
 						$sql = "SELECT l.titre, l.photo, l.isbn13, l.anneeparution, l.detail, l.dateajout, a.nom, a.prenom 
 								FROM livre l 
@@ -66,7 +66,7 @@
 							<p><strong>Année de parution :</strong> <?php echo ($livre['anneeparution']); ?></p>
 							<p><strong>Date d'ajout :</strong> <?php echo ($livre['dateajout']); ?></p>
 							<h5>Description :</h5>
-							<p><?php echo nl2br(($livre['detail'])); ?></p>
+							<p><?php echo (($livre['detail'])); ?></p>
 							<?php echo $message; ?>
 							<p class="disponible" >Disponible</p>
 							<?php if (!isset($_SESSION['user'])): ?>

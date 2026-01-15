@@ -26,8 +26,8 @@
 					$searchQuery = '';
 					
 					//Pour afficher les livres de tels ou tels auteur juste avec le nom ou prénom
-					if (isset($_GET['author']) && trim($_GET['author']) !== '') {
-    				$searchQuery = trim($_GET['author']);
+					if (isset($_GET['author'])) {
+    				$searchQuery = ($_GET['author']);
 
    					$sql = "SELECT l.nolivre, l.titre, a.nom, a.prenom
             				FROM livre l
@@ -42,7 +42,8 @@
 					$stmt->execute();
 
     				$livres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}				?>
+					}				
+				?>
 
 
 				<?php if (!empty($searchQuery)): ?>
