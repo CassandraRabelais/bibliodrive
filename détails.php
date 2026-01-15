@@ -32,7 +32,7 @@
 						$stmt = $connexion->prepare($sql);
 						$stmt->bindParam(':nolivre', $nolivre, PDO::PARAM_INT);
 						$stmt->execute();
-						$livre = $stmt->fetch(PDO::FETCH_ASSOC);
+						$livre = $stmt->fetch(PDO::FETCH_OBJ);
 					}
 
 					// Pour ajouter au panier 
@@ -56,17 +56,17 @@
 				<?php if ($livre): ?>
 					<div class="row">
 						<div class="col-md-4">
-							<img src="covers/<?php echo ($livre['photo']); ?>" class="img-fluid" alt="<?php echo ($livre['titre']); ?>" style="max-height:400px; object-fit:contain;">
+							<img src="covers/<?php echo ($livre->photo); ?>" class="img-fluid" alt="<?php echo ($livre->titre); ?>" style="max-height:400px; object-fit:contain;">
 						</div>
 						<!--description / détail du livre-->
 						<div class="col-md-8">
-							<h2><?php echo ($livre['titre']); ?></h2>
-							<p><strong>Auteur :</strong> <?php echo ($livre['prenom'] . ' ' . $livre['nom']); ?></p>
-							<p><strong>ISBN-13 :</strong> <?php echo ($livre['isbn13']); ?></p>
-							<p><strong>Année de parution :</strong> <?php echo ($livre['anneeparution']); ?></p>
-							<p><strong>Date d'ajout :</strong> <?php echo ($livre['dateajout']); ?></p>
+							<h2><?php echo ($livre->titre); ?></h2>
+							<p><strong>Auteur :</strong> <?php echo ($livre->prenom . ' ' . $livre->nom); ?></p>
+							<p><strong>ISBN-13 :</strong> <?php echo ($livre->isbn13); ?></p>
+							<p><strong>Année de parution :</strong> <?php echo ($livre->anneeparution); ?></p>
+							<p><strong>Date d'ajout :</strong> <?php echo ($livre->dateajout); ?></p>
 							<h5>Description :</h5>
-							<p><?php echo nl2br(($livre['detail'])); ?></p>
+							<p><?php echo nl2br(($livre->detail)); ?></p>
 							<?php echo $message; ?>
 							<p class="disponible" >Disponible</p>
 							<?php if (!isset($_SESSION['user'])): ?>

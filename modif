@@ -1,5 +1,3 @@
-- Enlever les fetch assoc ou autre ($livres = $stmt->fetchAll(PDO::FETCH_ASSOC); // à remplacer)
-- Savoir expliquer Isset correctement 
+- Savoir expliquer Isset correctement (variable existante ou non)
 - $currentBorrowedStmt = à savoir ou à changer 
-- trim 
-- nl12 ou jsp
+
