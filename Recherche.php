@@ -40,10 +40,9 @@
     				$param = '%' . $searchQuery . '%';
 					$stmt->bindValue(':author', $param, PDO::PARAM_STR);
 					$stmt->execute();
-
     				$livres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 					}				
-				?>
+					?>
 
 
 				<?php if (!empty($searchQuery)): ?>

@@ -66,7 +66,7 @@
 							<p><strong>Année de parution :</strong> <?php echo ($livre['anneeparution']); ?></p>
 							<p><strong>Date d'ajout :</strong> <?php echo ($livre['dateajout']); ?></p>
 							<h5>Description :</h5>
-							<p><?php echo (($livre['detail'])); ?></p>
+							<p><?php echo nl2br(($livre['detail'])); ?></p>
 							<?php echo $message; ?>
 							<p class="disponible" >Disponible</p>
 							<?php if (!isset($_SESSION['user'])): ?>
@@ -84,9 +84,7 @@
 					<div class="alert alert-danger" role="alert">
 						Livre non trouvé ou numéro invalide.
 					</div>
-					<a href="Recherche.php<?php echo !empty($searchQuery) ? '?author=' . ($searchQuery) : ''; ?>" class="btn btn-secondary">Retour à la recherche</a>
 				<?php endif; ?>
-
 				<!-- Bootstrap JS -->
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 			</div>
