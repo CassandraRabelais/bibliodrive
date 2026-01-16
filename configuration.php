@@ -9,7 +9,7 @@ if (isset($_POST['deco'])) {
 }
 require_once('connexion.php');
 // Afficher l'en-tête selon le profil
-if (isset($_SESSION['profil']) && $_SESSION['profil'] === 'admin') {
+if (isset($_SESSION['profil']) && $_SESSION['profil'] == 'admin') {
     include 'navbar.php';
 } 
 ?>

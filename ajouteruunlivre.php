@@ -33,7 +33,7 @@ $stmt->execute();
                 <label for="noauteur" class="form-label">Auteur:</label>
                 <!-- Liste déroulante des auteurs -->
                 <select name="noauteur" class="form-control" id="noauteur" required>
-                    <?php while ($auteur = $stmt->fetch(PDO::FETCH_OBJ)): ?>
+                    <?php while ($auteur = $stmt->fetch(PDO::FETCH_OBJ)): ?> <!-- Boucle pour chaque auteur -->
                         <option value="<?= $auteur->noauteur ?>"><?= $auteur->prenom . ' ' . $auteur->nom ?></option> <!-- Afficher prénom et nom de l'auteur -->
                     <?php endwhile; ?>
                 </select>

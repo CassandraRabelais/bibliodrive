@@ -32,7 +32,7 @@
 						$stmt = $connexion->prepare($sql);
 						$stmt->bindParam(':nolivre', $nolivre, PDO::PARAM_INT);
 						$stmt->execute();
-						$livre = $stmt->fetch(PDO::FETCH_OBJ); // Récupère le livre en tant qu'objet
+						$livre = $stmt->fetch(PDO::FETCH_OBJ); // Récupère la variable (livre) en tant qu'objet
 					}
 
 					// Pour ajouter au panier 

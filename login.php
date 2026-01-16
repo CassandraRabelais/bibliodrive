@@ -12,7 +12,7 @@
     session_start();
     require_once 'connexion.php';
 
-if (!empty($_POST)) {
+    if (!empty($_POST)) { // Vérifier si le formulaire a été soumis et donc n'est pas vide 
         $email = $_POST['email'];
         $password = $_POST['password'];
 

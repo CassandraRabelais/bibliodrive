@@ -22,15 +22,15 @@ require_once 'navbar.php';
 				require_once 'connexion.php';
 				$stmt = $connexion->prepare("SELECT titre, photo FROM livre ORDER BY dateajout DESC LIMIT 3");
 				$stmt->execute();
-				$livres = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$livres = $stmt->fetchAll(PDO::FETCH_OBJ); // Récupère tous les livres en tant qu'objets
 			?>
 			<!--Pour afficher le carrousel de façon dynamique-->
 			<h2 class="mb-3">Dernières acquisitions</h2>
 			<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<?php foreach ($livres as $index => $livre): ?>
-					<div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-						<img src="covers/<?php echo ($livre->photo); ?>" class="d-block w-100" alt="<?php echo ($livre->titre); ?>" style="max-height: 500px; object-fit: contain;">
+					<div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>"> <!-- Rend le premier élément actif -->
+					<img src="covers/<?php echo ($livre->photo); ?>" class="d-block w-100" alt="<?php echo ($livre->titre); ?>" style="max-height: 500px; object-fit: contain;">
 					</div>
 					<?php endforeach; ?>
 				</div>
